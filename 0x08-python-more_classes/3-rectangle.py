@@ -1,13 +1,30 @@
 #!/usr/bin/python3
+"""Defines a Rectangle class."""
 
 class Rectangle:
+    """
+    Represents a rectangle.
+
+    Attributes:
+        width (int): The width of the rectangle.
+        height (int): The height of the rectangle.
+    """
+
     def __init__(self, width=0, height=0):
-        self.width = width
-        self.height = height
+        """
+        Initializes a new instance of the Rectangle class.
+
+        Args:
+            width (int): The width of the new rectangle.
+            height (int): The height of the new rectangle.
+        """
+        self._width = width
+        self._height = height
 
     @property
     def width(self):
-        return self.__width
+        """Gets or sets the width of the rectangle."""
+        return self._width
 
     @width.setter
     def width(self, value):
@@ -15,11 +32,12 @@ class Rectangle:
             raise TypeError("width must be an integer")
         if value < 0:
             raise ValueError("width must be >= 0")
-        self.__width = value
+        self._width = value
 
     @property
     def height(self):
-        return self.__height
+        """Gets or sets the height of the rectangle."""
+        return self._height
 
     @height.setter
     def height(self, value):
@@ -27,18 +45,29 @@ class Rectangle:
             raise TypeError("height must be an integer")
         if value < 0:
             raise ValueError("height must be >= 0")
-        self.__height = value
+        self._height = value
 
     def area(self):
-        return self.width * self.height
+        """Returns the area of the rectangle."""
+        return self._width * self._height
 
     def perimeter(self):
-        return 2 * (self.width + self.height)
+        """Returns the perimeter of the rectangle."""
+        if self._width == 0 or self._height == 0:
+            return 0
+        return self._width * 2 + self._height * 2
 
     def __str__(self):
-        if self.width == 0 or self.height == 0:
+        """Returns the printable representation of the rectangle.
+
+        The rectangle is represented using the '#' character.
+        """
+        if self._width == 0 or self._height == 0:
             return ""
-        rectangle_str = ""
-        for _ in range(self.height):
-            rectangle_str += "#" * self.width + "\n"
-        return rectangle_str[:-1]
+
+        rect = []
+        for i in range(self._height):
+            rect.extend(["#"] * self._width)
+            if i != self._height - 1:
+                rect.append("\n")
+        return "".join(rect)
